@@ -8,7 +8,7 @@ My Fedora configuration (based on Fedora Workstation). Configures & Updates Fedo
 
 - **config-fedora.sh**: Main script
 
-- **gnome.list**: File containing packages to be added or removed for GNOME customization (themes and extensions)
+- **configs**: Folder containing configuration files
 
 - **packages.list**: File containing system packages to be added or removed
 
