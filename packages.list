@@ -123,13 +123,11 @@ add:guake
 # GUI: Security
 add:keepassxc
 
-# GUI: Games
-add:dosbox-staging
-
 # GUI: System Administration
 add:wireshark
 
 # i3 Enhancements
+add_i3-gaps
 add:rofi
 add:feh
 add:picom

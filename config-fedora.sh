@@ -204,12 +204,12 @@ elif [[ "$1" == "coffee" ]] || [[ "$1" == "check" ]] || [[ "$1" == "testing" ]] 
 then
 	echo "OK" > /dev/null
 else
-	echo "Usage incorrect du script :"
-	echo "- $(basename $0)              : Lance la config et/ou les mises à jour"
-	echo "- $(basename $0) check        : Vérifie les mises à jour disponibles et propose de les lancer"
-	echo "- $(basename $0) testing      : Vérifie les mises à jour disponibles en test"
-	echo "- $(basename $0) upgrade      : Lance la mise à niveau de Fedora vers la version suivante"
-	echo "- $(basename $0) scriptupdate : Met à jour le script depuis Github"
+	echo "Incorrect use of script :"
+	echo "- $(basename $0)              : Launches configuration and/or updates"
+	echo "- $(basename $0) check        : Checks for available updates and suggests launching them"
+	echo "- $(basename $0) testing      : Checks for available test updates"
+	echo "- $(basename $0) upgrade      : Starts Fedora upgrade to the next version"
+	echo "- $(basename $0) scriptupdate : Update script from Github"
 	exit 1;
 fi
 
@@ -245,10 +245,10 @@ fi
 if [[ "$1" = "scriptupdate" ]]
 then
 	echo $0
-	wget -O- https://raw.githubusercontent.com/aaaaadrien/fedora-config/refs/heads/main/config-fedora.sh > "$0"
+	wget -O- https://raw.githubusercontent.com/davidsousaa/fedora-i3-config/refs/heads/main/config-fedora.sh > "$0"
 	chmod +x "$0"
 
-	wget -O- -q https://raw.githubusercontent.com/aaaaadrien/fedora-config/refs/heads/main/CHANGELOG.txt | head
+	wget -O- -q https://raw.githubusercontent.com/davidsousaa/fedora-i3-config/refs/heads/main/CHANGELOG.txt | head
 
 	exit 0;
 fi
@@ -256,7 +256,7 @@ fi
 # Test if root
 if [[ $(id -u) -ne "0" ]]
 then
-	echo -e "\033[31mERREUR\033[0m Lancer le script avec les droits root (su - root ou sudo)"
+	echo -e "\033[31mERREUR\033[0m Run the script as root (su - root or sudo)"
 	exit 1;
 fi
 
@@ -268,9 +268,9 @@ then
 fi
 
 
-# Infos fichier log
+# Log file info
 echo -e "\033[36m"
-echo "Pour suivre la progression des mises à jour : tail -f $LOGFILE"
+echo "To track the progress of updates : tail -f $LOGFILE"
 echo -e "\033[0m"
 
 # Date dans le log
@@ -625,9 +625,9 @@ if [[ -f "$HOME/.zshrc" ]]; then
 fi
 
 # Symlink or copy your preconfigured .zshrc
-if [[ -f "$ICI/zshrc" ]]; then
+if [[ -f "$ICI/configs/zsh/.zshrc" ]]; then
     echo -n "- - - Restoring preconfigured .zshrc: "
-    cp "$ICI/zshrc" "$HOME/.zshrc"
+    cp "$ICI/configs/zsh/.zshrc" "$HOME/.zshrc"
     check_cmd
 fi
 
