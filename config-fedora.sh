@@ -416,38 +416,6 @@ then
 	sed -e 's/\t//g' -i /etc/yum.repos.d/vivaldi.repo
 fi
 
-## GOOGLE CHROME
-if [[ -e /etc/yum.repos.d/google-chrome.repo &&  $(grep -c 'enabled=0' /etc/yum.repos.d/google-chrome.repo) -eq 1 ]]
-then
-	rm -f /etc/yum.repos.d/google-chrome.repo
-fi
-if ! check_repo_file google-chrome.repo
-then
-	echo -n "- - - Installation Google Chrome Repo : "
-	echo "[google-chrome]
-	name=google-chrome
-	baseurl=https://dl.google.com/linux/chrome/rpm/stable/x86_64
-	enabled=1
-	gpgcheck=1
-	gpgkey=https://dl.google.com/linux/linux_signing_key.pub" 2>/dev/null > /etc/yum.repos.d/google-chrome.repo
-	check_cmd
-	sed -e 's/\t//g' -i /etc/yum.repos.d/google-chrome.repo
-fi
-
-## MICROSOFT
-if ! check_repo_file microsoft-prod.repo
-then
-	echo -n "- - - Installation Microsoft Prod Repo : "
-	echo "[packages-microsoft-com-pro]
-	name=Microsoft Production
-	baseurl=https://packages.microsoft.com/rhel/9/prod/
-	enabled=1
-	gpgcheck=1
-	gpgkey=https://packages.microsoft.com/keys/microsoft.asc" 2>/dev/null > /etc/yum.repos.d/microsoft-prod.repo
-	check_cmd
-	sed -e 's/\t//g' -i /etc/yum.repos.d/microsoft-prod.repo
-fi
-
 ## FLATHUB
 if [[ $(flatpak remotes | grep -c flathub) -ne 1 ]]
 then
@@ -507,32 +475,6 @@ do
 	fi
 done
 
-### INSTALL OUTILS GNOME
-echo "08- Vérification composants GNOME"
-while read -r line
-do
-	if [[ "$line" == add:* ]]
-	then
-		p=${line#add:}
-		if ! check_pkg "$p"
-		then
-			echo -n "- - - Installation composant GNOME $p : "
-			add_pkg "$p"
-			check_cmd
-		fi
-	fi
-	
-	if [[ "$line" == del:* ]]
-	then
-		p=${line#del:}
-		if check_pkg "$p"
-		then
-			echo -n "- - - Suppression composant GNOME $p : "
-			del_pkg "$p"
-			check_cmd
-		fi
-	fi
-done < "$ICI/gnome.list"
 
 ### INSTALL/SUPPRESSION RPMS SELON LISTE
 echo "09- Gestion des paquets RPM"
@@ -588,7 +530,7 @@ do
 	fi
 done < "$ICI/flatpak.list"
 
-### Vérif configuration système
+### Verify system configuration
 echo "11- Configuration personnalisée du système"
 SYSCTLFIC="/etc/sysctl.d/adrien.conf"
 if [[ ! -e "$SYSCTLFIC" ]]
@@ -609,26 +551,6 @@ then
 	echo "kernel.sysrq = 1" >> "$SYSCTLFIC"
 	check_cmd
 fi
-
-#PROFILEFIC="/etc/profile.d/adrien.sh"
-#if [[ ! -e "$PROFILEFIC" ]]
-#then
-#        echo -n "- - - Création du fichier $PROFILEFIC : "
-#        touch "$PROFILEFIC"
-#        check_cmd
-#fi
-#if [[ $(grep -c 'QT_QPA_PLATFORMTHEME=' "$PROFILEFIC") -lt 1 ]]
-#then
-#	echo -n "- - - Définition du thème des applis KDE à gnome : "
-#	echo "export QT_QPA_PLATFORMTHEME=gnome" >> "$PROFILEFIC"
-#	check_cmd
-#fi
-#if [[ $(grep -c 'QT_QPA_PLATFORM=' "$PROFILEFIC") -lt 1 ]]
-#then
-#	echo -n "- - - Fix du décalage des menus des applis Qt sous Wayland : "
-#	echo "export QT_QPA_PLATFORM=xcb" >> "$PROFILEFIC"
-#	check_cmd
-#fi
 
 if ! check_pkg "pigz"
 then
@@ -681,7 +603,41 @@ then
 	check_cmd
 fi
 
-# Verif si reboot nécessaire
+# Check if Zsh is installed
+if ! check_pkg "zsh"; then
+    echo -n "- - - Installing Zsh: "
+    add_pkg "zsh"
+    check_cmd
+fi
+
+# Check if Oh-My-Zsh is already installed
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    echo -n "- - - Installing Oh-My-Zsh: "
+    curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash >/dev/null 2>&1
+    check_cmd
+fi
+
+# Restore previous configuration if available
+if [[ -f "$HOME/.zshrc" ]]; then
+    echo -n "- - - Backing up existing .zshrc: "
+    cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
+    check_cmd
+fi
+
+# Symlink or copy your preconfigured .zshrc
+if [[ -f "$ICI/zshrc" ]]; then
+    echo -n "- - - Restoring preconfigured .zshrc: "
+    cp "$ICI/zshrc" "$HOME/.zshrc"
+    check_cmd
+fi
+
+# Set Zsh as the default shell
+echo -n "- - - Setting Zsh as the default shell: "
+chsh -s "$(which zsh)" "$USER"
+check_cmd
+
+
+# Verify if reboot is needed
 if ! need_reboot
 then
 	ask_reboot
