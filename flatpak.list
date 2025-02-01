@@ -1,25 +1,13 @@
-# GUI : Multimedia
-add:com.github.marinm.songrec
-add:com.obsproject.Studio
-
-# GUI : Graphisme
-add:org.upscayl.Upscayl
-
 # GUI : Internet
-add:com.anydesk.Anydesk
 del:com.discordapp.Discord
-add:org.telegram.desktop
 
-# GUI : Utilitaires
+# GUI : Utility
 del:com.usebottles.bottles
 add:com.github.tchx84.Flatseal
 
-# GUI : Jeux
-add:com.valvesoftware.Steam
+# GUI : Games
 add:com.github.k4zmu2a.spacecadetpinball
 
 # GUI : Virtualisation
 add:org.virt_manager.virt-viewer
 
-# GUI : Admin système
-add:io.dbeaver.DBeaverCommunity

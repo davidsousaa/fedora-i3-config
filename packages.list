@@ -1,17 +1,13 @@
 #add:packagename
 #del:packagename
 
-# Français sur système installé en anglais
-add:aspell-fr
-add:libreoffice-langpack-fr
-
-# Intégration APPS KDE
+# KDE Applications Integration
 add:plasma-breeze
 
-# Specifque Hardware
-add:amd-ucode-firmware
+# Hardware Specific
+add:amd-ucode
 
-# Admin SYS
+# System Administration
 add:cockpit
 add:cockpit-bridge
 add:cockpit-networkmanager
@@ -30,36 +26,27 @@ add:redhat-mono-fonts
 add:redhat-display-vf-fonts
 add:redhat-display-fonts
 
-# GNOME Apps
-add:ptyxis
-add:seahorse
-add:gnome-tweaks
-add:file-roller
-add:dconf-editor
-del:abrt
-del:gnome-terminal
-
-# CLI : Console
+# CLI: Console
 add:screen
 add:vim-enhanced
 
-# CLI : Contrib Fedora
+# CLI: Fedora Contributions
 add:git
 add:koji
 add:python3-fedora
 add:libtirpc-devel
 
-# CLI : devops
+# CLI: DevOps
 add:podman
 add:podman-tui
 add:toolbox
 add:toolbox-extra-tools
 
-# CLI : Scripting
+# CLI: Scripting
 add:ShellCheck
 add:powershell
 
-# CLI : Système
+# CLI: System Monitoring
 add:htop
 add:nmon
 add:glances
@@ -74,83 +61,78 @@ add:cronie
 add:mariadb
 add:nfs-utils
 
-# CLI : Disques
+# CLI: Disk Utilities
 add:nwipe
 add:sg3_utils
 
-# CLI : Réseau
+# CLI: Networking
 add:netcat
 add:nmap
 add:iftop
 add:traceroute
 add:speedtest-cli
-add:fuse-sshfs
+add:sshfs
 add:telnet
 
-# CLI : backup
+# CLI: Backup
 add:borgbackup
 
-# CLI : Multimedia
+# CLI: Multimedia
 add:abcde
-add:sox
-add:vorbisgain
 add:mediainfo
-add:yt-dlp
-add:cmus
 
-# CLI : Divers
+# CLI: Miscellaneous
 add:git
 add:pv
-add:android-tools
 add:arm-image-installer
 
-# GUI : Multimedia
+# GUI: Multimedia
 add:pavucontrol
 del:clementine
 add:strawberry
 add:smplayer
 add:soundconverter
-add:kdenlive
-add:audacity
-add:easytag
 del:peek
-del:obs-studio
-del:obs-studio-plugin-webkitgtk
-del:obs-studio-plugin-browser
 add:mediainfo-gui
 
-# GUI : Virtualisation
+# GUI: Virtualization
 add:VirtualBox
 add:virt-manager
 del:virt-viewer
 
-# GUI : Graphisme
+# GUI: Graphics
 add:gimp
 add:inkscape
 del:flameshot
 
-# GUI : Reseau
+# GUI: Networking
 add:remmina
 del:anydesk
 add:gqrx
 
-# GUI : Internet
+# GUI: Internet
 add:epiphany
 add:evolution
 add:vivaldi-stable
-add:google-chrome-stable
-del:telegram-desktop
 add:discord
 
-# GUI : Utilitaires
+# GUI: Utilities
 add:cool-retro-term
 add:guake
 
-# GUI : Sécurité
+# GUI: Security
 add:keepassxc
 
-# GUI : Jeux
+# GUI: Games
 add:dosbox-staging
 
-# GUI : Admin Systeme
+# GUI: System Administration
 add:wireshark
+
+# i3 Enhancements
+add:rofi
+add:feh
+add:picom
+add:polybar
+add:nitrogen
+add:lxappearance

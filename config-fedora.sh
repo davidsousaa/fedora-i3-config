@@ -216,7 +216,7 @@ fi
 # Easter Egg
 if [[ "$1" = "coffee" ]]
 then
-	echo "Oui ce script fait aussi le café !"
+	echo "Yes, the script makes coffee !"
 	echo ""
 	echo '    (  )   (   )  )'
 	echo '     ) (   )  (  ('
@@ -230,7 +230,7 @@ then
 	echo '/    \___________/    \'
 	echo '\_____________________/'
 	echo ""
-	echo "Impressionnant n'est ce pas !?"
+	echo "Impressive!?"
 
 	exit 0;
 fi
@@ -253,19 +253,20 @@ then
 	exit 0;
 fi
 
-# Tester si root
+# Test if root
 if [[ $(id -u) -ne "0" ]]
 then
 	echo -e "\033[31mERREUR\033[0m Lancer le script avec les droits root (su - root ou sudo)"
 	exit 1;
 fi
 
-# Tester si bien Fedora Workstation
-if ! check_pkg fedora-release-workstation
+# Test if Fedora i3 Spin is installed
+if ! check_pkg fedora-release-i3
 then
-	echo -e "\033[31mERREUR\033[0m Seule Fedora Workstation (GNOME) est supportée !"
-	exit 2;
+    echo -e "\033[31mERROR\033[0m Only Fedora i3 Spin is supported!"
+    exit 2;
 fi
+
 
 # Infos fichier log
 echo -e "\033[36m"
