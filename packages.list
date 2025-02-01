@@ -114,7 +114,6 @@ add:gqrx
 add:epiphany
 add:evolution
 add:vivaldi-stable
-add:discord
 
 # GUI: Utilities
 add:cool-retro-term

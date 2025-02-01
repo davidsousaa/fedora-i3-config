@@ -10,12 +10,12 @@ DNFVERSION="$(readlink $(which dnf))"
 FC0=$(rpm -E %fedora)
 FC1=$(($FC0 + 1))
 #####################
-### FIN VARIABLES ###
+### END VARIABLES ###
 #####################
 
 
 #################
-### FONCTIONS ###
+### FUNCTIONS ###
 #################
 
 check_cmd()
@@ -24,7 +24,7 @@ if [[ $? -eq 0 ]]
 then
     	echo -e "\033[32mOK\033[0m"
 else
-    	echo -e "\033[31mERREUR\033[0m"
+    	echo -e "\033[31mERROR\033[0m"
 fi
 }
 
@@ -414,6 +414,20 @@ then
 	gpgkey=http://repo.vivaldi.com/archive/linux_signing_key.pub" 2>/dev/null > /etc/yum.repos.d/vivaldi.repo
 	check_cmd
 	sed -e 's/\t//g' -i /etc/yum.repos.d/vivaldi.repo
+fi
+
+## MICROSOFT
+if ! check_repo_file microsoft-prod.repo
+then
+	echo -n "- - - Installation Microsoft Prod Repo : "
+	echo "[packages-microsoft-com-pro]
+	name=Microsoft Production
+	baseurl=https://packages.microsoft.com/rhel/9/prod/
+	enabled=1
+	gpgcheck=1
+	gpgkey=https://packages.microsoft.com/keys/microsoft.asc" 2>/dev/null > /etc/yum.repos.d/microsoft-prod.repo
+	check_cmd
+	sed -e 's/\t//g' -i /etc/yum.repos.d/microsoft-prod.repo
 fi
 
 ## FLATHUB

@@ -1,5 +1,6 @@
 # GUI : Internet
-del:com.discordapp.Discord
+add:com.discordapp.Discord
+add:com.spotify.Client
 
 # GUI : Utility
 del:com.usebottles.bottles
