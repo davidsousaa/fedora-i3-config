@@ -1,6 +1,8 @@
 # Fedora Config
 My Fedora configuration (based on Fedora Workstation). Configures & Updates Fedora.
 
+**NOT DONE YET**
+
 **Works only with Fedora i3 Spin.**
 
 
